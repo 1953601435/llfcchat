@@ -3,7 +3,7 @@
 #include "singleton.h"
 #include<QString>
 #include<QUrl>
-#include<QObject>T
+#include<QObject>
 #include<QNetworkAccessManager>
 #include<QJsonObject>//发送的字节流，json
 #include<QJsonDocument>
@@ -19,9 +19,11 @@ private:
     HttpMgr();//单例，构造函数不能公有
     QNetworkAccessManager _manager;
     void PostHttpReq(QUrl url,QJsonObject json,ReqId req_id,Modules mod);
+private slots:
+    void slot_http_finish(ReqId id,QString res,ErrorCodes err,Modules mod);//槽函数
 signals:
     void sig_http_finish(ReqId id,QString res,ErrorCodes err,Modules mod);
-
+    void sig_reg_mod_finish(ReqId id,QString res,ErrorCodes err);
 };
 
 #endif // HTTPMGR_H
